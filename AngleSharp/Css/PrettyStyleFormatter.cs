@@ -58,7 +58,9 @@
             var lines = new List<String>();
 
             foreach (var rule in rules)
+            {
                 lines.Add(rule.ToCss(this));
+            }
 
             return String.Join(_newLineString + _newLineString, lines);
         }

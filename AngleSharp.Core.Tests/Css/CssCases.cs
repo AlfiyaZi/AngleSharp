@@ -1,9 +1,11 @@
 namespace AngleSharp.Core.Tests.Css
 {
     using AngleSharp.Dom.Css;
+    using AngleSharp.Extensions;
     using AngleSharp.Parser.Css;
     using NUnit.Framework;
     using System;
+    using System.Linq;
 
 	[TestFixture]
 	public class CssCasesTests : CssConstructionFunctions
@@ -16,7 +18,8 @@ namespace AngleSharp.Core.Tests.Css
                 IsIncludingUnknownRules = true,
                 IsToleratingInvalidConstraints = true,
                 IsToleratingInvalidValues = true,
-                IsToleratingInvalidSelectors = true
+                IsToleratingInvalidSelectors = true,
+                IsStoringTrivia = true
             });
         }
 
@@ -1027,6 +1030,17 @@ lack; }");
             Assert.AreEqual(@"black", ((ICssStyleRule)sheet.Rules[0]).Style["color"]);
             Assert.AreEqual(@"black", ((ICssStyleRule)sheet.Rules[0]).Style["border-color"]);
             Assert.AreEqual(@"black", ((ICssStyleRule)sheet.Rules[0]).Style["outline-color"]);
+        }
+
+        [Test]
+        public void StyleSheetWithCommentsPrintsCommentCorrectly()
+        {
+            var sheet = ParseSheet("h1 { /* some comment*/ }");
+            var comments = sheet.GetComments();
+            Assert.AreEqual(1, comments.Count());
+            var comment = comments.First();
+            Assert.AreEqual("/* some comment*/", comment.ToCss());
+            Assert.AreEqual(" some comment", comment.Data);
         }
 
         [Test]

@@ -24,7 +24,9 @@
             var lines = new List<String>();
 
             foreach (var rule in rules)
+            {
                 lines.Add(rule.ToCss(this));
+            }
 
             return String.Join(Environment.NewLine, lines);
         }
@@ -34,7 +36,9 @@
             var sb = Pool.NewStringBuilder().Append('{');
 
             foreach (var rule in rules)
+            {
                 sb.Append(' ').Append(rule.ToCss(this));
+            }
 
             return sb.Append(' ').Append('}').ToPool();
         }
@@ -54,7 +58,9 @@
                 var constraint = String.Join(" and ", constraints);
 
                 if (String.IsNullOrEmpty(type))
+                {
                     return String.Concat(prefix, constraint);
+                }
 
                 return String.Concat(prefix, type, " and ", constraint);
             }
@@ -92,7 +98,7 @@
 
         String IStyleFormatter.Comment(String data)
         {
-            return String.Join("/* ", data, " */");
+            return String.Concat("/*", data, "*/");
         }
 
         #endregion
