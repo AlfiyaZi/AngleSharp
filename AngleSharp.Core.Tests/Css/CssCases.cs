@@ -1064,5 +1064,14 @@ lack; }");
             Assert.IsInstanceOf<ICssComment>(comment);
             Assert.AreEqual(" Comment at the start ", ((ICssComment)comment).Data);
         }
+
+        [Test]
+        public void StyleSheetShouldPrintComments()
+        {
+            var sheet = ParseSheet("h1 { } /* c1 */ h2 { } /* c2 */");
+            var comments = sheet.GetComments();
+            Assert.AreEqual(2, comments.Count());
+            Assert.AreEqual("h1 { }\r\n/* c1 */\r\nh2 { }\r\n/* c2 */", sheet.ToCss());
+        }
     }
 }

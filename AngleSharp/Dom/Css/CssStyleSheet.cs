@@ -116,7 +116,7 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            return formatter.Sheet(_rules);
+            return formatter.Sheet(Children);
         }
 
         public void RemoveAt(Int32 index)

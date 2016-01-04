@@ -442,8 +442,8 @@
                 }
 
                 token = NextToken();
-                CollectTrivia(ref token);
                 list.Add(medium);
+                CollectTrivia(ref token);
             }
 
             return list;
@@ -463,8 +463,8 @@
             {
                 var rule = CreateRule(token);
                 token = NextToken();
-                CollectTrivia(ref token);
                 sheet.Rules.Add(rule);
+                CollectTrivia(ref token);
             }
 
             _nodes.Pop();
