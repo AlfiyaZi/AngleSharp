@@ -620,6 +620,12 @@
     <Compile Include="..\AngleSharp\Dom\Css\CssProperty.cs">
       <Link>Dom\Css\CssProperty.cs</Link>
     </Compile>
+    <Compile Include="..\AngleSharp\Dom\Css\CssRawString.cs">
+      <Link>Dom\Css\CssRawString.cs</Link>
+    </Compile>
+    <Compile Include="..\AngleSharp\Dom\Css\CssRawUrl.cs">
+      <Link>Dom\Css\CssRawUrl.cs</Link>
+    </Compile>
     <Compile Include="..\AngleSharp\Dom\Css\CssStyleDeclaration.cs">
       <Link>Dom\Css\CssStyleDeclaration.cs</Link>
     </Compile>
