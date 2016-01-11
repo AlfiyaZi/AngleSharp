@@ -577,7 +577,6 @@
         {
             var selfClosing = Flags.HasFlag(NodeFlags.SelfClosing);
             var open = formatter.OpenTag(this, selfClosing);
-            var children = String.Empty;
 
             if (!selfClosing)
             {
@@ -598,11 +597,12 @@
                     sb.Append(child.ToHtml(formatter));
                 }
 
-                children = sb.ToPool();
+                var children = sb.ToPool();
+                var close = formatter.CloseTag(this);
+                return String.Concat(open, children, close);
             }
 
-            var close = formatter.CloseTag(this, selfClosing);
-            return String.Concat(open, children, close);
+            return open;
         }
 
         #endregion

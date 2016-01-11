@@ -1,7 +1,7 @@
 ﻿namespace AngleSharp.Html
 {
-    using System;
     using AngleSharp.Dom;
+    using System;
 
     /// <summary>
     /// Represents the standard HTML5 markup formatter.
@@ -72,12 +72,12 @@
             return temp.ToPool();
         }
 
-        String IMarkupFormatter.CloseTag(IElement element, Boolean selfClosing)
+        String IMarkupFormatter.CloseTag(IElement element)
         {
             var prefix = element.Prefix;
             var name = element.LocalName;
             var tag = !String.IsNullOrEmpty(prefix) ? prefix + ":" + name : name;
-            return selfClosing ? String.Empty : String.Concat("</", tag, ">");
+            return String.Concat("</", tag, ">");
         }
 
         String IMarkupFormatter.Attribute(IAttr attr)

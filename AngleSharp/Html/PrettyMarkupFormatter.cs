@@ -88,20 +88,23 @@
         String IMarkupFormatter.OpenTag(IElement element, Boolean selfClosing)
         {
             var before = IntendBefore(element.PreviousSibling ?? element.Parent);
-            _intendCount++;
-            return String.Concat(
-                before,
+
+            if (!selfClosing)
+            {
+                _intendCount++;
+            }
+
+            return String.Concat(before,
                 HtmlMarkupFormatter.Instance.OpenTag(element, selfClosing),
                 NewLineAfter(element.FirstChild ?? element.NextSibling));
         }
 
-        String IMarkupFormatter.CloseTag(IElement element, Boolean selfClosing)
+        String IMarkupFormatter.CloseTag(IElement element)
         {
             _intendCount--;
             var before = IntendBefore(element.LastChild ?? element.Parent);
-            return String.Concat(
-                before,
-                HtmlMarkupFormatter.Instance.CloseTag(element, selfClosing),
+            return String.Concat(before,
+                HtmlMarkupFormatter.Instance.CloseTag(element),
                 NewLineAfter(element.NextSibling ?? element.Parent));
         }
 

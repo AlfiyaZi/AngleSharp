@@ -1,7 +1,7 @@
 ﻿namespace AngleSharp
 {
-    using System;
     using AngleSharp.Dom;
+    using System;
 
     /// <summary>
     /// Basic interface for HTML node serialization.
@@ -54,11 +54,8 @@
         /// Formats closing a tag with the given name.
         /// </summary>
         /// <param name="element">The element to close.</param>
-        /// <param name="selfClosing">
-        /// Is the element actually self-closing?
-        /// </param>
         /// <returns>The formatted closing tag.</returns>
-        String CloseTag(IElement element, Boolean selfClosing);
+        String CloseTag(IElement element);
 
         /// <summary>
         /// Formats an attribute specified by the argument.
