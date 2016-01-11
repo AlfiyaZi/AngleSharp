@@ -10,8 +10,8 @@
     {
         #region ctor
 
-        public UrlPrefixFunction(String url)
-            : base(FunctionNames.UrlPrefix, url)
+        public UrlPrefixFunction()
+            : base(FunctionNames.UrlPrefix)
         {
         }
 

@@ -59,14 +59,9 @@
             return Condition.Check();
         }
 
-        #endregion
-
-        #region String Representation
-
-        public override String ToCss(IStyleFormatter formatter)
+        protected override String GetRuleName()
         {
-            var rules = formatter.Block(Rules);
-            return formatter.Rule("@supports", ConditionText, rules);
+            return "@supports";
         }
 
         #endregion

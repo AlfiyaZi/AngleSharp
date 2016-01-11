@@ -58,8 +58,9 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            var rules = formatter.Block(Declarations.Where(m => m.HasValue));
-            return formatter.Rule("@" + _name, null, rules);
+            //var rules = formatter.Block(Declarations.Where(m => m.HasValue));
+            //return formatter.Rule("@" + _name, null, rules);
+            return String.Empty;
         }
 
         #endregion

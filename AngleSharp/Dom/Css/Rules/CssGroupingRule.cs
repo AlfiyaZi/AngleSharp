@@ -52,6 +52,18 @@
             _rules.RemoveAt(index);
         }
 
+        public sealed override String ToCss(IStyleFormatter formatter)
+        {
+            var name = GetRuleName();
+            return formatter.BlockRule(name, Children);
+        }
+
+        #endregion
+
+        #region Internal Methods
+
+        protected abstract String GetRuleName();
+
         #endregion
     }
 }

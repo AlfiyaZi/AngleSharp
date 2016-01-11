@@ -9,18 +9,11 @@
     /// </summary>
     sealed class DomainFunction : DocumentFunction
     {
-        #region Fields
-
-        readonly String _subdomain;
-
-        #endregion
-
         #region ctor
 
-        public DomainFunction(String url)
-            : base(FunctionNames.Domain, url)
+        public DomainFunction()
+            : base(FunctionNames.Domain)
         {
-            _subdomain = "." + url;
         }
 
         #endregion
@@ -29,8 +22,9 @@
 
         public override Boolean Matches(Url url)
         {
+            var data = Data;
             var domain = url.HostName;
-            return domain.Isi(Data) || domain.EndsWith(_subdomain, StringComparison.OrdinalIgnoreCase);
+            return domain.Isi(data) || domain.EndsWith( "." + data, StringComparison.OrdinalIgnoreCase);
         }
 
         #endregion

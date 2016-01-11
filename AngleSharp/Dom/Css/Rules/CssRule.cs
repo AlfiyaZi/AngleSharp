@@ -2,6 +2,7 @@
 {
     using AngleSharp.Parser.Css;
     using System;
+    using System.Linq;
 
     /// <summary>
     /// Represents a CSS rule.
@@ -91,6 +92,24 @@
         protected virtual void ReplaceWith(ICssRule rule)
         {
             ReplaceAll(rule);
+        }
+
+        protected String GetValue<T>(Func<T, String> getter)
+            where T : ICssNode
+        {
+            return Children.OfType<T>().Select(getter).FirstOrDefault();
+        }
+
+        protected void SetValue<T>(String value, Func<String, T> creator)
+            where T : ICssNode
+        {
+            RemoveChild(Children.OfType<T>().FirstOrDefault());
+
+            if (value != null)
+            {
+                var child = creator(value);
+                AppendChild(child);
+            }
         }
 
         protected void ReplaceSingle(ICssNode oldNode, ICssNode newNode)

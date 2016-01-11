@@ -9,18 +9,11 @@
     /// </summary>
     sealed class RegexpFunction : DocumentFunction
     {
-        #region Fields
-
-        readonly Regex _regex;
-
-        #endregion
-
         #region ctor
 
-        public RegexpFunction(String url)
-            : base(FunctionNames.Regexp, url)
+        public RegexpFunction()
+            : base(FunctionNames.Regexp)
         {
-            _regex = new Regex(url, RegexOptions.ECMAScript | RegexOptions.CultureInvariant);
         }
 
         #endregion
@@ -29,7 +22,8 @@
 
         public override Boolean Matches(Url url)
         {
-            return _regex.IsMatch(url.Href);
+            var regex = new Regex(Data, RegexOptions.ECMAScript | RegexOptions.CultureInvariant);
+            return regex.IsMatch(url.Href);
         }
 
         #endregion

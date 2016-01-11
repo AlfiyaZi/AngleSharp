@@ -14,7 +14,6 @@
     {
         #region Fields
 
-        String _href;
         CssStyleSheet _styleSheet;
 
         #endregion
@@ -33,8 +32,8 @@
 
         public String Href
         {
-            get { return _href; }
-            set { _href = value; }
+            get { return GetValue<CssRawUrl>(m => m.CssText); }
+            set { SetValue(value, m => new CssRawUrl(m)); }
         }
 
         public MediaList Media
@@ -62,7 +61,7 @@
             {
                 var loader = document.Loader;
                 var baseUrl = Url.Create(Owner.Href ?? document.BaseUri);
-                var url = new Url(baseUrl, _href);
+                var url = new Url(baseUrl, Href);
 
                 if (!IsRecursion(url) && loader != null)
                 {
@@ -82,11 +81,9 @@
 
         protected override void ReplaceWith(ICssRule rule)
         {
-            var newRule = rule as CssImportRule;
-            _href = newRule._href;
             _styleSheet = null;
-            //TODO Load New StyleSheet
             base.ReplaceWith(rule);
+            //TODO Load New StyleSheet
         }
 
         #endregion
@@ -95,10 +92,7 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            var media = Media.MediaText;
-            var space = String.IsNullOrEmpty(media) ? String.Empty : " ";
-            var value = String.Concat(_href.CssUrl(), space, media);
-            return formatter.Rule("@import", value);
+            return formatter.SimpleRule("@import", Children);
         }
 
         #endregion

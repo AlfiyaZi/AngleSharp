@@ -48,14 +48,9 @@
             return Media.Validate(device);
         }
 
-        #endregion
-
-        #region String Representation
-
-        public override String ToCss(IStyleFormatter formatter)
+        protected override String GetRuleName()
         {
-            var rules = formatter.Block(Rules);
-            return formatter.Rule("@media", Media.MediaText, rules);
+            return "@media";
         }
 
         #endregion

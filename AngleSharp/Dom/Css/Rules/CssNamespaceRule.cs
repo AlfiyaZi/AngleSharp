@@ -1,6 +1,5 @@
 ﻿namespace AngleSharp.Dom.Css
 {
-    using AngleSharp.Extensions;
     using AngleSharp.Parser.Css;
     using System;
 
@@ -9,13 +8,6 @@
     /// </summary>
     sealed class CssNamespaceRule : CssRule, ICssNamespaceRule
     {
-        #region Fields
-
-        String _namespaceUri;
-        String _prefix;
-
-        #endregion
-
         #region ctor
 
         internal CssNamespaceRule(CssParser parser)
@@ -29,34 +21,14 @@
 
         public String NamespaceUri
         {
-            get { return _namespaceUri; }
-            set 
-            {
-                CheckValidity();
-                _namespaceUri = value ?? String.Empty;
-            }
+            get { return GetValue<CssRawUrl>(m => m.CssText); }
+            set { CheckValidity(); SetValue(value, m => new CssRawUrl(m)); }
         }
 
         public String Prefix
         {
-            get { return _prefix; }
-            set 
-            {
-                CheckValidity();
-                _prefix = value ?? String.Empty;
-            }
-        }
-
-        #endregion
-
-        #region Internal Methods
-
-        protected override void ReplaceWith(ICssRule rule)
-        {
-            var newRule = rule as CssNamespaceRule;
-            _namespaceUri = newRule._namespaceUri;
-            _prefix = newRule._prefix;
-            base.ReplaceWith(rule);
+            get { return GetValue<CssRawString>(m => m.CssText); }
+            set { CheckValidity(); SetValue(value, m => new CssRawString(m)); }
         }
 
         #endregion
@@ -65,9 +37,7 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            var space = String.IsNullOrEmpty(_prefix) ? String.Empty : " ";
-            var value = String.Concat(_prefix, space, _namespaceUri.CssUrl());
-            return formatter.Rule("@namespace", value);
+            return formatter.SimpleRule("@namespace", Children);
         }
 
         #endregion
@@ -76,7 +46,9 @@
 
         static Boolean IsNotSupported(CssRuleType type)
         {
-            return type != CssRuleType.Charset && type != CssRuleType.Import && type != CssRuleType.Namespace;
+            return type != CssRuleType.Charset && 
+                   type != CssRuleType.Import && 
+                   type != CssRuleType.Namespace;
         }
 
         void CheckValidity()

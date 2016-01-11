@@ -2340,36 +2340,26 @@
                             var properties = Factory.Properties.GetLonghands(shorthand);
                             var currentLonghands = longhands.Where(m => properties.Contains(m.Name)).ToArray();
 
-                            if (currentLonghands.Length == 0)
+                            if (currentLonghands.Length > 0)
                             {
-                                continue;
-                            }
+                                var important = currentLonghands.Count(m => m.IsImportant);
+                                var importantIsConsistent = important == 0 || important != currentLonghands.Length;
 
-                            var important = currentLonghands.Count(m => m.IsImportant);
+                                if (importantIsConsistent && properties.Length == currentLonghands.Length)
+                                {
+                                    var value = rule.Stringify(currentLonghands);
 
-                            if (important > 0 && important != currentLonghands.Length)
-                            {
-                                continue;
-                            }
+                                    if (!String.IsNullOrEmpty(value))
+                                    {
+                                        list.Add(CssStyleFormatter.Instance.Declaration(shorthand, value, important != 0));
 
-                            if (properties.Length != currentLonghands.Length)
-                            {
-                                continue;
-                            }
-
-                            var value = rule.Stringify(currentLonghands);
-
-                            if (String.IsNullOrEmpty(value))
-                            {
-                                continue;
-                            }
-
-                            list.Add(CssStyleFormatter.Instance.Declaration(shorthand, value, important != 0));
-
-                            foreach (var longhand in currentLonghands)
-                            {
-                                serialized.Add(longhand.Name);
-                                longhands.Remove(longhand);
+                                        foreach (var longhand in currentLonghands)
+                                        {
+                                            serialized.Add(longhand.Name);
+                                            longhands.Remove(longhand);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

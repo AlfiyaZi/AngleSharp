@@ -13,11 +13,11 @@
     [DebuggerStepThrough]
     static class CssParserExtensions
     {
-        static readonly Dictionary<String, Func<String, DocumentFunction>> functionTypes = new Dictionary<String, Func<String, DocumentFunction>>(StringComparer.OrdinalIgnoreCase)
+        static readonly Dictionary<String, Func<DocumentFunction>> functionTypes = new Dictionary<String, Func<DocumentFunction>>(StringComparer.OrdinalIgnoreCase)
         {
-            { FunctionNames.Url, str => new UrlFunction(str) },
-            { FunctionNames.Domain, str => new DomainFunction(str) },
-            { FunctionNames.UrlPrefix, str => new UrlPrefixFunction(str) },
+            { FunctionNames.Url, () => new UrlFunction() },
+            { FunctionNames.Domain, () => new DomainFunction() },
+            { FunctionNames.UrlPrefix, () => new UrlPrefixFunction() },
         };
 
         static readonly Dictionary<String, Func<IEnumerable<IConditionFunction>, IConditionFunction>> groupCreators = new Dictionary<String, Func<IEnumerable<IConditionFunction>, IConditionFunction>>(StringComparer.OrdinalIgnoreCase)
@@ -57,7 +57,7 @@
         /// <returns>The token type for the name.</returns>
         public static CssTokenType GetTypeFromName(this String functionName)
         {
-            var creator = default(Func<String, DocumentFunction>);
+            var creator = default(Func<DocumentFunction>);
             return functionTypes.TryGetValue(functionName, out creator) ? CssTokenType.Url : CssTokenType.Function;
         }
 
@@ -150,10 +150,13 @@
         {
             if (token.Type == CssTokenType.Url)
             {
-                var creator = default(Func<String, DocumentFunction>);
+                var creator = default(Func<DocumentFunction>);
                 var functionName = ((CssUrlToken)token).FunctionName;
                 functionTypes.TryGetValue(functionName, out creator);
-                return creator(token.Data);
+                var function = creator();
+                var data = new CssRawString(token.Data);
+                function.AppendChild(data);
+                return function;
             }
             else if (token.Type == CssTokenType.Function && token.Data.Isi(FunctionNames.Regexp))
             {
@@ -161,7 +164,10 @@
 
                 if (str != null)
                 {
-                    return new RegexpFunction(str);
+                    var function = new RegexpFunction();
+                    var data = new CssRawString(str);
+                    function.AppendChild(data);
+                    return function;
                 }
             }
 

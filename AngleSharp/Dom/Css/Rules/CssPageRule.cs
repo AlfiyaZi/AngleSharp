@@ -46,12 +46,13 @@
 
         #endregion
 
-        #region String representation
+        #region String Representation
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            var rules = formatter.Block(Style);
-            return formatter.Rule("@page", SelectorText, rules);
+            var selector = "@page " + Selector.ToCss(formatter);
+            var style = Style.ToCss(formatter);
+            return formatter.Style(selector, style);
         }
 
         #endregion

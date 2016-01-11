@@ -88,8 +88,9 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            var rules = formatter.Block(Rules);
-            return formatter.Rule("@keyframes", _name, rules);
+            //var rules = formatter.Block(Children);
+            //return formatter.Rule("@keyframes", _name, rules);
+            return String.Empty;
         }
 
         #endregion

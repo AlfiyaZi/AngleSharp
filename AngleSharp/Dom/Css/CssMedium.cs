@@ -123,7 +123,7 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            var constraints = Features.Select(m => m.ToCss(formatter)).ToArray();
+            var constraints = Features.Select(m => m.ToCss(formatter));
             return formatter.Medium(IsExclusive, IsInverse, Type, constraints);
         }
 

@@ -66,8 +66,10 @@
     <Compile Include="Dom\Css\ConditionFunctions\NotCondition.cs" />
     <Compile Include="Dom\Css\ConditionFunctions\OrCondition.cs" />
     <Compile Include="Dom\Css\CssComment.cs" />
+    <Compile Include="Dom\Css\CssRawString.cs" />
     <Compile Include="Dom\Css\CssNode.cs" />
     <Compile Include="Css\CssStyleFormatter.cs" />
+    <Compile Include="Dom\Css\CssRawUrl.cs" />
     <Compile Include="Dom\Css\DocumentFunctions\DomainFunction.cs" />
     <Compile Include="Dom\Css\DocumentFunctions\RegexpFunction.cs" />
     <Compile Include="Dom\Css\DocumentFunctions\UrlFunction.cs" />

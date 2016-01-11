@@ -53,7 +53,7 @@
 
         #region Methods
 
-        String IStyleFormatter.Sheet(IEnumerable<IStyleFormattable> rules)
+        String IStyleFormatter.Rules(IEnumerable<IStyleFormattable> rules)
         {
             var lines = new List<String>();
 
@@ -63,19 +63,6 @@
             }
 
             return String.Join(_newLineString + _newLineString, lines);
-        }
-
-        String IStyleFormatter.Block(IEnumerable<IStyleFormattable> rules)
-        {
-            var sb = Pool.NewStringBuilder().Append('{').Append(' ');
-
-            foreach (var rule in rules)
-            {
-                var content = Intend(rule.ToCss(this));
-                sb.Append(_newLineString).Append(content).Append(_newLineString);
-            }
-
-            return sb.Append('}').ToPool();
         }
 
         String IStyleFormatter.Declaration(String name, String value, Boolean important)
@@ -88,44 +75,38 @@
             return String.Join(_newLineString, declarations.Select(m => m + ";"));
         }
 
-        String IStyleFormatter.Medium(Boolean exclusive, Boolean inverse, String type, String[] constraints)
-        {
-            return CssStyleFormatter.Instance.Medium(exclusive, inverse, type, constraints);
-        }
-
         String IStyleFormatter.Constraint(String name, String value)
         {
             return CssStyleFormatter.Instance.Constraint(name, value);
         }
 
-        String IStyleFormatter.Rule(String name, String value)
-        {
-            return CssStyleFormatter.Instance.Rule(name, value);
-        }
-
-        String IStyleFormatter.Rule(String name, String prelude, String rules)
-        {
-            return CssStyleFormatter.Instance.Rule(name, prelude, rules);
-        }
-
-        String IStyleFormatter.Style(String selector, String rules)
-        {
-            if (!String.IsNullOrEmpty(rules))
-            {
-                var sb = Pool.NewStringBuilder().Append(selector);
-                sb.Append(' ').Append('{');
-                sb.Append(_newLineString);
-                sb.Append(Intend(rules));
-                sb.Append(_newLineString);
-                return sb.Append('}').ToPool();
-            }
-
-            return selector + " { }";
-        }
-
         String IStyleFormatter.Comment(String data)
         {
             return CssStyleFormatter.Instance.Comment(data);
+        }
+
+        String IStyleFormatter.Medium(Boolean exclusive, Boolean inverse, String type, IEnumerable<String> constraints)
+        {
+            return CssStyleFormatter.Instance.Medium(exclusive, inverse, type, constraints);
+        }
+
+        String IStyleFormatter.SimpleRule(String name, IEnumerable<IStyleFormattable> children)
+        {
+            return CssStyleFormatter.Instance.SimpleRule(name, children);
+        }
+
+        String IStyleFormatter.BlockRule(String name, IEnumerable<IStyleFormattable> children)
+        {
+            return CssStyleFormatter.Instance.BlockRule(name, children);
+        }
+
+        String IStyleFormatter.Style(String selector, String declarations)
+        {
+            var sb = Pool.NewStringBuilder().Append(selector);
+            sb.Append(" {").Append(_newLineString);
+            sb.Append(Intend(declarations));
+            sb.Append(_newLineString).Append('}');
+            return sb.ToPool();
         }
 
         #endregion

@@ -50,8 +50,9 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            var rules = Style.ToCss(formatter);
-            return formatter.Style(SelectorText, rules);
+            var selector = Selector.ToCss(formatter);
+            var style = Style.ToCss(formatter);
+            return formatter.Style(selector, style);
         }
 
         #endregion

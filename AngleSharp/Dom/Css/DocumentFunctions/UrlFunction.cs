@@ -8,18 +8,11 @@
     /// </summary>
     sealed class UrlFunction : DocumentFunction
     {
-        #region Fields
-
-        readonly Url _expected;
-
-        #endregion
-
         #region ctor
 
-        public UrlFunction(String url)
-            : base(FunctionNames.Url, url)
+        public UrlFunction()
+            : base(FunctionNames.Url)
         {
-            _expected = Url.Create(Data);
         }
 
         #endregion
@@ -28,7 +21,8 @@
 
         public override Boolean Matches(Url actual)
         {
-            return !_expected.IsInvalid && _expected.Equals(actual);
+            var expected = Url.Create(Data);
+            return !expected.IsInvalid && expected.Equals(actual);
         }
 
         #endregion

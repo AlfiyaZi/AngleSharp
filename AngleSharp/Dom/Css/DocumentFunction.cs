@@ -2,6 +2,7 @@
 {
     using AngleSharp.Extensions;
     using System;
+    using System.Linq;
 
     /// <summary>
     /// Represents a feature expression within a media query.
@@ -11,16 +12,14 @@
         #region Fields
 
         readonly String _name;
-        readonly String _data;
 
         #endregion
 
         #region ctor
 
-        internal DocumentFunction(String name, String data)
+        internal DocumentFunction(String name)
         {
             _name = name;
-            _data = data;
         }
 
         #endregion
@@ -34,7 +33,7 @@
 
         public String Data
         {
-            get { return _data; }
+            get { return Children.OfType<CssRawString>().Select(m => m.CssText).FirstOrDefault(); }
         }
 
         #endregion
@@ -49,7 +48,7 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            return String.Concat(_name, "(", _data.CssString(), ")");
+            return String.Concat(_name, "(", Data.CssString(), ")");
         }
 
         #endregion

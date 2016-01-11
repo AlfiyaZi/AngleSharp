@@ -1,6 +1,5 @@
 ﻿namespace AngleSharp.Dom.Css
 {
-    using AngleSharp.Extensions;
     using AngleSharp.Parser.Css;
     using System;
 
@@ -22,19 +21,8 @@
 
         public String CharacterSet
         {
-            get;
-            set;
-        }
-
-        #endregion
-
-        #region Internal Methods
-
-        protected override void ReplaceWith(ICssRule rule)
-        {
-            var newRule = rule as CssCharsetRule;
-            CharacterSet = newRule.CharacterSet;
-            base.ReplaceWith(rule);
+            get { return GetValue<CssRawString>(m => m.CssText); }
+            set { SetValue(value, m => new CssRawString(m)); }
         }
 
         #endregion
@@ -43,7 +31,7 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            return formatter.Rule("@charset", CharacterSet.CssString());
+            return formatter.SimpleRule("@charset", Children);
         }
 
         #endregion

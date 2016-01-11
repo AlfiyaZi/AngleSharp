@@ -59,8 +59,9 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            var rules = Style.ToCss(formatter);
-            return formatter.Style(KeyText, rules);
+            //var rules = Style.ToCss(formatter);
+            //return formatter.Style(KeyText, rules);
+            return String.Empty;
         }
 
         #endregion
