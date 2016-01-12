@@ -605,6 +605,9 @@
     <Compile Include="..\AngleSharp\Dom\Css\Constants\Whitespace.cs">
       <Link>Dom\Css\Constants\Whitespace.cs</Link>
     </Compile>
+    <Compile Include="..\AngleSharp\Dom\Css\CssBlock.cs">
+      <Link>Dom\Css\CssBlock.cs</Link>
+    </Compile>
     <Compile Include="..\AngleSharp\Dom\Css\CssComment.cs">
       <Link>Dom\Css\CssComment.cs</Link>
     </Compile>
