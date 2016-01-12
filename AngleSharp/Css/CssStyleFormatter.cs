@@ -67,19 +67,7 @@
             return String.Concat(prefix, type ?? String.Empty);
         }
 
-        String IStyleFormatter.SimpleRule(String name, IEnumerable<IStyleFormattable> children)
-        {
-            var sb = Pool.NewStringBuilder().Append(name);
-
-            foreach (var child in children)
-            {
-                sb.Append(' ').Append(child.ToCss(this));
-            }
-
-            return sb.Append(';').ToPool();
-        }
-
-        String IStyleFormatter.BlockRule(String name, IEnumerable<IStyleFormattable> children)
+        String IStyleFormatter.Rule(String name, IEnumerable<IStyleFormattable> children)
         {
             var sb = Pool.NewStringBuilder().Append(name);
 
@@ -89,6 +77,19 @@
             }
 
             return sb.ToPool();
+        }
+
+        String IStyleFormatter.Block(IEnumerable<IStyleFormattable> children)
+        {
+            var sb = Pool.NewStringBuilder().Append('{');
+
+            foreach (var child in children)
+            {
+                var rule = child.ToCss(this);
+                sb.Append(' ').Append(rule);
+            }
+
+            return sb.Append(" }").ToPool();
         }
 
         String IStyleFormatter.Style(String selector, String declarations)

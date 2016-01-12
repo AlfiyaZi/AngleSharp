@@ -5,6 +5,7 @@
     using AngleSharp.Network;
     using AngleSharp.Parser.Css;
     using System;
+    using System.Linq;
 
     /// <summary>
     /// Represents a CSS Stylesheet.
@@ -93,7 +94,7 @@
 
         ICssRuleList ICssStyleSheet.Rules
         {
-            get { return _rules; }
+            get { return Rules; }
         }
 
         public ICssRule OwnerRule
@@ -121,14 +122,14 @@
 
         public void RemoveAt(Int32 index)
         {
-            _rules.RemoveAt(index);
+            Rules.RemoveAt(index);
         }
 
         public Int32 Insert(String ruleText, Int32 index)
         {
             var rule = _parser.ParseRule(ruleText);
             rule.Owner = this;
-            _rules.Insert(index, rule);
+            Rules.Insert(index, rule);
             return index;            
         }
 

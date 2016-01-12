@@ -103,13 +103,9 @@
         protected void SetValue<T>(String value, Func<String, T> creator)
             where T : ICssNode
         {
-            RemoveChild(Children.OfType<T>().FirstOrDefault());
-
-            if (value != null)
-            {
-                var child = creator(value);
-                AppendChild(child);
-            }
+            var existing = Children.OfType<T>().FirstOrDefault();
+            var novel = value != null ? creator(value) : default(T);
+            ReplaceSingle(existing, novel);
         }
 
         protected void ReplaceSingle(ICssNode oldNode, ICssNode newNode)

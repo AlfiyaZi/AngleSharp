@@ -16,7 +16,7 @@
         internal CssMediaRule(CssParser parser)
             : base(CssRuleType.Media, parser)
         {
-            AppendChild(new MediaList(parser));
+            InsertChild(0, new MediaList(parser));
         }
 
         #endregion

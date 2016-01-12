@@ -13,7 +13,6 @@
         #region Fields
 
         readonly CssRuleList _rules;
-        String _name;
 
         #endregion
 
@@ -22,7 +21,9 @@
         internal CssKeyframesRule(CssParser parser)
             : base(CssRuleType.Keyframes, parser)
         {
-            _rules = new CssRuleList(this);
+            var block = new CssBlock();
+            AppendChild(block);
+            _rules = new CssRuleList(block);
         }
 
         #endregion
@@ -31,8 +32,8 @@
 
         public String Name
         {
-            get { return _name; }
-            set { _name = value; }
+            get { return GetValue<CssRawString>(m => m.CssText); }
+            set { SetValue(value, m => new CssRawString(m)); }
         }
 
         public CssRuleList Rules
@@ -42,7 +43,7 @@
 
         ICssRuleList ICssKeyframesRule.Rules
         {
-            get { return _rules; }
+            get { return Rules; }
         }
 
         #endregion
@@ -52,18 +53,18 @@
         public void Add(String ruleText)
         {
             var rule = Parser.ParseKeyframeRule(ruleText);
-            _rules.Add(rule);
+            Rules.Add(rule);
         }
 
         public void Remove(String key)
         {
             var element = Find(key);
-            _rules.Remove(element);
+            Rules.Remove(element);
         }
 
         public CssKeyframeRule Find(String key)
         {
-            return _rules.OfType<CssKeyframeRule>().FirstOrDefault(m => key.Isi(m.KeyText));
+            return Rules.OfType<CssKeyframeRule>().FirstOrDefault(m => key.Isi(m.KeyText));
         }
 
         ICssKeyframeRule ICssKeyframesRule.Find(String key)
@@ -71,26 +72,9 @@
             return Find(key);
         }
 
-        #endregion
-
-        #region Internal Methods
-
-        protected override void ReplaceWith(ICssRule rule)
-        {
-            var newRule = rule as CssKeyframesRule;
-            _name = newRule._name;
-            base.ReplaceWith(rule);
-        }
-
-        #endregion
-
-        #region String Representation
-
         public override String ToCss(IStyleFormatter formatter)
         {
-            //var rules = formatter.Block(Children);
-            //return formatter.Rule("@keyframes", _name, rules);
-            return String.Empty;
+            return formatter.Rule("@keyframes", Children);
         }
 
         #endregion

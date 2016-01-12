@@ -65,6 +65,7 @@
     <Compile Include="Dom\Css\ConditionFunctions\GroupCondition.cs" />
     <Compile Include="Dom\Css\ConditionFunctions\NotCondition.cs" />
     <Compile Include="Dom\Css\ConditionFunctions\OrCondition.cs" />
+    <Compile Include="Dom\Css\CssBlock.cs" />
     <Compile Include="Dom\Css\CssComment.cs" />
     <Compile Include="Dom\Css\CssRawString.cs" />
     <Compile Include="Dom\Css\CssNode.cs" />

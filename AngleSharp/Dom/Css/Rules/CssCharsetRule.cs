@@ -31,7 +31,7 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            return formatter.SimpleRule("@charset", Children);
+            return formatter.Rule("@charset", Children) + ";";
         }
 
         #endregion

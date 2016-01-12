@@ -60,19 +60,19 @@
         String Medium(Boolean exclusive, Boolean inverse, String type, IEnumerable<String> constraints);
 
         /// <summary>
-        /// Converts the name and value of the provided rule to a simple rule.
+        /// Converts the name and value of the provided rule to a rule.
         /// </summary>
-        /// <param name="name">The name of the simple rule.</param>
-        /// <param name="children">The children of the simple rule.</param>
-        /// <returns>The serialization of the simple rule.</returns>
-        String SimpleRule(String name, IEnumerable<IStyleFormattable> children);
+        /// <param name="name">The name of the rule.</param>
+        /// <param name="children">The children of the rule.</param>
+        /// <returns>The serialization of the rule.</returns>
+        String Rule(String name, IEnumerable<IStyleFormattable> children);
 
         /// <summary>
         /// Concats the given rules to create a block serialization.
         /// </summary>
         /// <param name="children">The rules to aggregate.</param>
         /// <returns>The serialization of the CSS rule block.</returns>
-        String BlockRule(String name, IEnumerable<IStyleFormattable> children);
+        String Block(IEnumerable<IStyleFormattable> children);
 
         /// <summary>
         /// Converts the provided selector and declaration to a style rule.

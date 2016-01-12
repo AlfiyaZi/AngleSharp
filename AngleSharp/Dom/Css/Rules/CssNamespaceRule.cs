@@ -37,7 +37,7 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            return formatter.SimpleRule("@namespace", Children);
+            return formatter.Rule("@namespace", Children) + ";";
         }
 
         #endregion

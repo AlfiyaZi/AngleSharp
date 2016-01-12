@@ -92,7 +92,7 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            return formatter.SimpleRule("@import", Children);
+            return formatter.Rule("@import", Children) + ";";
         }
 
         #endregion

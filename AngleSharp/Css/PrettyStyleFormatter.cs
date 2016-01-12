@@ -90,14 +90,24 @@
             return CssStyleFormatter.Instance.Medium(exclusive, inverse, type, constraints);
         }
 
-        String IStyleFormatter.SimpleRule(String name, IEnumerable<IStyleFormattable> children)
+        String IStyleFormatter.Rule(String name, IEnumerable<IStyleFormattable> children)
         {
-            return CssStyleFormatter.Instance.SimpleRule(name, children);
+            return CssStyleFormatter.Instance.Rule(name, children);
         }
 
-        String IStyleFormatter.BlockRule(String name, IEnumerable<IStyleFormattable> children)
+        String IStyleFormatter.Block(IEnumerable<IStyleFormattable> children)
         {
-            return CssStyleFormatter.Instance.BlockRule(name, children);
+            var sb = Pool.NewStringBuilder().Append('{');
+
+            foreach (var child in children)
+            {
+                var rule = child.ToCss(this);
+                var str = Intend(rule);
+                sb.Append(_newLineString).Append(str);
+            }
+
+            sb.Append(_newLineString).Append('}');
+            return sb.ToPool();
         }
 
         String IStyleFormatter.Style(String selector, String declarations)

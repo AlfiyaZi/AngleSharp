@@ -19,7 +19,9 @@
         internal CssGroupingRule(CssRuleType type, CssParser parser)
             : base(type, parser)
         {
-            _rules = new CssRuleList(this);
+            var block = new CssBlock();
+            AppendChild(block);
+            _rules = new CssRuleList(block);
         }
 
         #endregion
@@ -33,7 +35,7 @@
 
         ICssRuleList ICssGroupingRule.Rules
         {
-            get { return _rules; }
+            get { return Rules; }
         }
 
         #endregion
@@ -43,19 +45,19 @@
         public Int32 Insert(String ruleText, Int32 index)
         {
             var rule = Parser.ParseRule(ruleText);
-            _rules.Insert(index, rule);
+            Rules.Insert(index, rule);
             return index;    
         }
 
         public void RemoveAt(Int32 index)
         {
-            _rules.RemoveAt(index);
+            Rules.RemoveAt(index);
         }
 
         public sealed override String ToCss(IStyleFormatter formatter)
         {
             var name = GetRuleName();
-            return formatter.BlockRule(name, Children);
+            return formatter.Rule(name, Children);
         }
 
         #endregion
