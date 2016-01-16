@@ -115,6 +115,13 @@
 
         #region Methods
 
+        public ICssRule AddNewRule(CssRuleType ruleType)
+        {
+            var rule = _parser.CreateRule(ruleType);
+            Rules.Add(rule);
+            return rule;
+        }
+
         public override String ToCss(IStyleFormatter formatter)
         {
             return formatter.Rules(Children);

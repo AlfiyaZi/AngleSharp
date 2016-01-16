@@ -42,6 +42,13 @@
 
         #region Methods
 
+        public ICssRule AddNewRule(CssRuleType ruleType)
+        {
+            var rule = Parser.CreateRule(ruleType);
+            Rules.Add(rule);
+            return rule;
+        }
+
         public Int32 Insert(String ruleText, Int32 index)
         {
             var rule = Parser.ParseRule(ruleText);
