@@ -92,10 +92,6 @@
 
         public abstract Boolean Validate(RenderDevice device);
 
-        #endregion
-
-        #region String Representation
-
         public override String ToCss(IStyleFormatter formatter)
         {
             return formatter.Constraint(_name, HasValue ? Value : null);

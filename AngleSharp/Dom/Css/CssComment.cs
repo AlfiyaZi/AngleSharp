@@ -31,7 +31,7 @@
 
         #endregion
 
-        #region String Representation
+        #region Methods
 
         public override String ToCss(IStyleFormatter formatter)
         {

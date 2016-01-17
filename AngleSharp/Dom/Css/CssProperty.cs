@@ -109,6 +109,15 @@
 
         #endregion
 
+        #region Methods
+
+        public override String ToCss(IStyleFormatter formatter)
+        {
+            return formatter.Declaration(Name, Value, IsImportant);
+        }
+
+        #endregion
+
         #region Internal Methods
 
         internal Boolean TrySetValue(CssValue newValue)
@@ -122,15 +131,6 @@
             }
 
             return false;
-        }
-
-        #endregion
-
-        #region String Representation
-
-        public override String ToCss(IStyleFormatter formatter)
-        {
-            return formatter.Declaration(Name, Value, IsImportant);
         }
 
         #endregion

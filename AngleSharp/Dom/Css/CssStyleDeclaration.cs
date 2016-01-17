@@ -65,7 +65,7 @@
 
         #endregion
 
-        #region General Properties
+        #region Properties
 
         public IEnumerable<CssProperty> Declarations
         {
@@ -2542,6 +2542,16 @@
             }
         }
 
+        public IEnumerator<ICssProperty> GetEnumerator()
+        {
+            return Declarations.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
         #endregion
 
         #region Internal Methods
@@ -2664,20 +2674,6 @@
             {
                 Changed(CssText);
             }
-        }
-
-        #endregion
-
-        #region Interface implementation
-
-        public IEnumerator<ICssProperty> GetEnumerator()
-        {
-            return Declarations.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
 
         #endregion

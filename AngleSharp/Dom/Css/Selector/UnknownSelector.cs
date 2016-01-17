@@ -8,14 +8,11 @@
     /// </summary>
     sealed class UnknownSelector : CssNode, ISelector
     {
+        #region Properties
+
         public Priority Specifity
         {
             get { return Priority.Zero; }
-        }
-
-        public Boolean Match(IElement element)
-        {
-            return false;
         }
 
         public String Text
@@ -23,9 +20,20 @@
             get { return this.ToCss(); }
         }
 
+        #endregion
+
+        #region Methods
+
+        public Boolean Match(IElement element)
+        {
+            return false;
+        }
+
         public override String ToCss(IStyleFormatter formatter)
         {
             return SourceCode != null ? SourceCode.Text : String.Empty;
         }
+
+        #endregion
     }
 }
