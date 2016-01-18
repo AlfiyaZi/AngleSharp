@@ -4,6 +4,9 @@
     using AngleSharp.Extensions;
     using System;
 
+    /// <summary>
+    /// Represents the update-frequency constraint.
+    /// </summary>
     sealed class UpdateFrequencyMediaFeature : MediaFeature
     {
         #region Fields
@@ -40,9 +43,13 @@
             var available = device.Frequency;
 
             if (available >= 30)
+            {
                 return desired == UpdateFrequency.Normal;
+            }
             else if (available > 0)
+            {
                 return desired == UpdateFrequency.Slow;
+            }
 
             return desired == UpdateFrequency.None;
         }

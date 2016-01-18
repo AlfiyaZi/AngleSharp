@@ -4,6 +4,9 @@
     using AngleSharp.Css.Values;
     using System;
 
+    /// <summary>
+    /// Represents the device-width constraint.
+    /// </summary>
     sealed class DeviceWidthMediaFeature : MediaFeature
     {
         #region ctor
@@ -30,15 +33,9 @@
         public override Boolean Validate(RenderDevice device)
         {
             var length = Length.Zero;
-            var desired = length.ToPixel();
+            var expected = length.ToPixel();
             var available = (Single)device.DeviceWidth;
-
-            if (IsMaximum)
-                return available <= desired;
-            else if (IsMinimum)
-                return available >= desired;
-
-            return desired == available;
+            return Assert(expected, available);
         }
 
         #endregion

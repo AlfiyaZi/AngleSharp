@@ -3,6 +3,9 @@
     using AngleSharp.Css;
     using System;
 
+    /// <summary>
+    /// Represents an unknown constraint.
+    /// </summary>
     sealed class UnknownMediaFeature : MediaFeature
     {
         #region ctor

@@ -4,6 +4,9 @@
     using AngleSharp.Extensions;
     using System;
 
+    /// <summary>
+    /// Represents the hover constraint.
+    /// </summary>
     sealed class HoverMediaFeature : MediaFeature
     {
         #region Fields

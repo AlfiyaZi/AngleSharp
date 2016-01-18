@@ -69,6 +69,18 @@
 
         #region Methods
 
+        public abstract Boolean Validate(RenderDevice device);
+
+        public override String ToCss(IStyleFormatter formatter)
+        {
+            var value = HasValue ? Value : null;
+            return formatter.Constraint(_name, value);
+        }
+
+        #endregion
+
+        #region Internal Methods
+
         internal Boolean TrySetValue(CssValue value)
         {
             var result = false;
@@ -90,11 +102,18 @@
             return result;
         }
 
-        public abstract Boolean Validate(RenderDevice device);
-
-        public override String ToCss(IStyleFormatter formatter)
+        protected Boolean Assert(Single expected, Single available)
         {
-            return formatter.Constraint(_name, HasValue ? Value : null);
+            if (IsMaximum)
+            {
+                return available <= expected;
+            }
+            else if (IsMinimum)
+            {
+                return available >= expected;
+            }
+
+            return expected == available;
         }
 
         #endregion

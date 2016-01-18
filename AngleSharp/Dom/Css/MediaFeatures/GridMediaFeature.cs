@@ -3,6 +3,9 @@
     using AngleSharp.Css;
     using System;
 
+    /// <summary>
+    /// Represents the grid constraint.
+    /// </summary>
     sealed class GridMediaFeature : MediaFeature
     {
         #region ctor
@@ -29,9 +32,9 @@
         public override Boolean Validate(RenderDevice device)
         {
             var grid = false;
-            var desired = grid;
+            var expected = grid;
             var available = device.IsGrid;
-            return desired == available;
+            return expected == available;
         }
 
         #endregion
