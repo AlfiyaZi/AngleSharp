@@ -21,19 +21,19 @@
 
         public String NamespaceUri
         {
-            get { return GetValue<CssRawUrl>(m => m.CssText); }
+            get { return GetValue<CssRawUrl, String>(m => m.CssText); }
             set { CheckValidity(); SetValue(value, m => new CssRawUrl(m)); }
         }
 
         public String Prefix
         {
-            get { return GetValue<CssRawString>(m => m.CssText); }
+            get { return GetValue<CssRawString, String>(m => m.CssText); }
             set { CheckValidity(); SetValue(value, m => new CssRawString(m)); }
         }
 
         #endregion
 
-        #region String Representation
+        #region Methods
 
         public override String ToCss(IStyleFormatter formatter)
         {

@@ -40,7 +40,7 @@
         public IKeyframeSelector Key
         {
             get { return Children.OfType<IKeyframeSelector>().FirstOrDefault(); }
-            set { ReplaceSingle(Key, value); }
+            set { ReplaceChild(Key, value); }
         }
 
         ICssStyleDeclaration ICssKeyframeRule.Style
@@ -55,13 +55,12 @@
 
         #endregion
 
-        #region String Representation
+        #region Methods
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            //var rules = Style.ToCss(formatter);
-            //return formatter.Style(KeyText, rules);
-            return String.Empty;
+            var rules = Style.ToCss(formatter);
+            return formatter.Style(KeyText, rules);
         }
 
         #endregion

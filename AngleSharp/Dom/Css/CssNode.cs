@@ -53,16 +53,30 @@
 
         public void ReplaceChild(ICssNode oldChild, ICssNode newChild)
         {
-            for (var i = 0; i < _children.Count; i++)
+            if (oldChild != null)
             {
-                if (Object.ReferenceEquals(oldChild, _children[i]))
+                for (var i = 0; i < _children.Count; i++)
                 {
-                    Teardown(oldChild);
-                    Setup(newChild);
-                    _children[i] = newChild;
-                    return;
+                    if (Object.ReferenceEquals(oldChild, _children[i]))
+                    {
+                        Teardown(oldChild);
+
+                        if (newChild != null)
+                        {
+                            Setup(newChild);
+                            _children[i] = newChild;
+                        }
+                        else
+                        {
+                            _children.RemoveAt(i);
+                        }
+
+                        return;
+                    }
                 }
             }
+
+            AppendChild(newChild);
         }
 
         public void InsertBefore(ICssNode referenceChild, ICssNode child)
@@ -80,8 +94,11 @@
 
         public void InsertChild(Int32 index, ICssNode child)
         {
-            Setup(child);
-            _children.Insert(index, child);
+            if (child != null)
+            {
+                Setup(child);
+                _children.Insert(index, child);
+            }
         }
 
         public void RemoveChild(ICssNode child)
@@ -112,6 +129,26 @@
             {
                 AppendChild(child);
             }
+        }
+
+        protected TChild GetValue<TChild>()
+            where TChild : ICssNode
+        {
+            return GetValue<TChild, TChild>(m => m);
+        }
+
+        protected TMember GetValue<TChild, TMember>(Func<TChild, TMember> getter)
+            where TChild : ICssNode
+        {
+            return Children.OfType<TChild>().Select(getter).FirstOrDefault();
+        }
+
+        protected void SetValue<TChild, TMember>(TMember value, Func<TMember, TChild> creator)
+            where TChild : ICssNode
+        {
+            var existing = Children.OfType<TChild>().FirstOrDefault();
+            var novel = value != null ? creator(value) : default(TChild);
+            ReplaceChild(existing, novel);
         }
 
         #endregion

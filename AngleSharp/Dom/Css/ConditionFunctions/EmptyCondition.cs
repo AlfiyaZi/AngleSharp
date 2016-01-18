@@ -2,8 +2,13 @@
 {
     using System;
 
+    /// <summary>
+    /// Condition for empty / no document conjunctions.
+    /// </summary>
     sealed class EmptyCondition : CssNode, IConditionFunction
     {
+        #region Methods
+
         public Boolean Check()
         {
             return true;
@@ -13,5 +18,7 @@
         {
             return String.Empty;
         }
+
+        #endregion
     }
 }
