@@ -42,10 +42,6 @@
 
         public abstract Boolean Matches(Url url);
 
-        #endregion
-
-        #region String Representation
-
         public override String ToCss(IStyleFormatter formatter)
         {
             return _name.CssFunction(Data.CssString());

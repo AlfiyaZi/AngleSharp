@@ -3,6 +3,9 @@
     using AngleSharp.Css;
     using System;
 
+    /// <summary>
+    /// Represents the scan constraint.
+    /// </summary>
     sealed class ScanMediaFeature : MediaFeature
     {
         #region Fields
@@ -35,9 +38,9 @@
         public override Boolean Validate(RenderDevice device)
         {
             var interlace = false;
-            var desired = interlace;
+            var expected = interlace;
             var available = device.IsInterlaced;
-            return desired == available;
+            return expected == available;
         }
 
         #endregion

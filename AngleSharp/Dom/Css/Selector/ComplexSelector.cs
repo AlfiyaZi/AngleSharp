@@ -104,6 +104,26 @@
             }
         }
 
+        public override String ToCss(IStyleFormatter formatter)
+        {
+            var sb = Pool.NewStringBuilder();
+
+            if (_selectors.Count > 0)
+            {
+                var n = _selectors.Count - 1;
+
+                for (var i = 0; i < n; i++)
+                {
+                    sb.Append(_selectors[i].Selector.Text)
+                      .Append(_selectors[i].Delimiter);
+                }
+
+                sb.Append(_selectors[n].Selector.Text);
+            }
+
+            return sb.ToPool();
+        }
+
         #endregion
 
         #region Helpers
@@ -124,30 +144,6 @@
             }
 
             return false;
-        }
-
-        #endregion
-
-        #region String Representation
-
-        public override String ToCss(IStyleFormatter formatter)
-        {
-            var sb = Pool.NewStringBuilder();
-
-            if (_selectors.Count > 0)
-            {
-                var n = _selectors.Count - 1;
-
-                for (var i = 0; i < n; i++)
-                {
-                    sb.Append(_selectors[i].Selector.Text)
-                      .Append(_selectors[i].Delimiter);
-                }
-
-                sb.Append(_selectors[n].Selector.Text);
-            }
-
-            return sb.ToPool();
         }
 
         #endregion

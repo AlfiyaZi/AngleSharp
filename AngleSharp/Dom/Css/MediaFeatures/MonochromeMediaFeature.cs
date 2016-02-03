@@ -4,6 +4,9 @@
     using AngleSharp.Extensions;
     using System;
 
+    /// <summary>
+    /// Represents the monochrome constraint.
+    /// </summary>
     sealed class MonochromeMediaFeature : MediaFeature
     {
         #region ctor
@@ -34,19 +37,9 @@
         public override Boolean Validate(RenderDevice device)
         {
             var index = 0;
-            var desired = index;
+            var expected = index;
             var available = device.MonochromeBits;
-
-            if (IsMaximum)
-            {
-                return available <= desired;
-            }
-            else if (IsMinimum)
-            {
-                return available >= desired;
-            }
-
-            return desired == available;
+            return Assert(expected, available);
         }
 
         #endregion

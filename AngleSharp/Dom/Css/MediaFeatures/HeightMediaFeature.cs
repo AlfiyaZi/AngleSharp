@@ -4,6 +4,9 @@
     using AngleSharp.Css.Values;
     using System;
 
+    /// <summary>
+    /// Represents the height constraint.
+    /// </summary>
     sealed class HeightMediaFeature : MediaFeature
     {
         #region ctor

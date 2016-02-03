@@ -147,7 +147,9 @@
             var events = parser.Config.Events;
 
             if (events != null)
+            {
                 events.Publish(evt);
+            }
 
             await parser.ParseStylesheetAsync(sheet, source).ConfigureAwait(false);
             evt.FireEnd();

@@ -23,10 +23,6 @@
             return true;
         }
 
-        #endregion
-
-        #region String Representation
-
         public override String ToCss(IStyleFormatter formatter)
         {
             var sb = Pool.NewStringBuilder();

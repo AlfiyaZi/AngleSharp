@@ -3,28 +3,31 @@
     using AngleSharp.Extensions;
     using System;
 
+    /// <summary>
+    /// Condition for grouped "()" document conjunctions.
+    /// </summary>
     sealed class GroupCondition : CssNode, IConditionFunction
     {
-        IConditionFunction _content;
+        #region ctor
+
+        public GroupCondition()
+        {
+            AppendChild(new EmptyCondition());
+        }
+
+        #endregion
+
+        #region Properties
 
         public IConditionFunction Content
         {
-            get { return _content ?? new EmptyCondition(); }
-            set
-            {
-                if (_content != null)
-                {
-                    RemoveChild(_content);
-                }
-
-                _content = value;
-
-                if (value != null)
-                {
-                    AppendChild(_content);
-                }
-            }
+            get { return GetValue<IConditionFunction, IConditionFunction>(m => m); }
+            set { ReplaceChild(Content, value); }
         }
+
+        #endregion
+
+        #region Methods
 
         public Boolean Check()
         {
@@ -33,8 +36,10 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            var content = Content.ToCss(formatter);
-            return String.Empty.CssFunction(content);
+            var condition = Content.ToCss(formatter);
+            return String.Empty.CssFunction(condition);
         }
+
+        #endregion
     }
 }

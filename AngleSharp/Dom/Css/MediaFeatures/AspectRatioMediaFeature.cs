@@ -3,6 +3,9 @@
     using AngleSharp.Css;
     using System;
 
+    /// <summary>
+    /// Represents the aspect-ratio constraint.
+    /// </summary>
     sealed class AspectRatioMediaFeature : MediaFeature
     {
         #region ctor
@@ -29,19 +32,9 @@
         public override Boolean Validate(RenderDevice device)
         {
             var ratio = Tuple.Create(1f, 1f);
-            var desired = ratio.Item1 / ratio.Item2;
+            var expected = ratio.Item1 / ratio.Item2;
             var available = (Single)device.ViewPortWidth / (Single)device.ViewPortHeight;
-
-            if (IsMaximum)
-            {
-                return available <= desired;
-            }
-            else if (IsMinimum)
-            {
-                return available >= desired;
-            }
-            
-            return desired == available;
+            return Assert(expected, available);
         }
 
         #endregion

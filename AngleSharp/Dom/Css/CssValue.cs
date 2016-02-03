@@ -62,16 +62,12 @@
 
         #endregion
 
-        #region String Representation
+        #region Methods
 
         public override String ToCss(IStyleFormatter formatter)
         {
             return _tokens.ToText();
         }
-
-        #endregion
-
-        #region IEnumerable
 
         public IEnumerator<CssToken> GetEnumerator()
         {

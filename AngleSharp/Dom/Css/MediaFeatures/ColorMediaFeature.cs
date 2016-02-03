@@ -4,6 +4,9 @@
     using AngleSharp.Extensions;
     using System;
 
+    /// <summary>
+    /// Represents the color constraint.
+    /// </summary>
     sealed class ColorMediaFeature : MediaFeature
     {
         #region ctor
@@ -34,19 +37,9 @@
         public override Boolean Validate(RenderDevice device)
         {
             var color = 1;
-            var desired = color;
-            var available = Math.Pow(device.ColorBits, 2);
-
-            if (IsMaximum)
-            {
-                return available <= desired;
-            }
-            else if (IsMinimum)
-            {
-                return available >= desired;
-            }
-
-            return desired == available;
+            var expected = color;
+            var available = (Single)Math.Pow(device.ColorBits, 2);
+            return Assert(expected, available);
         }
 
         #endregion

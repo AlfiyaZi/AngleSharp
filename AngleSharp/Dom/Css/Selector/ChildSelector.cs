@@ -43,19 +43,7 @@
 
         #region Methods
 
-        internal ChildSelector With(Int32 step, Int32 offset, ISelector kind)
-        {
-            _step = step;
-            _offset = offset;
-            _kind = kind;
-            return this;
-        }
-
         public abstract Boolean Match(IElement element);
-
-        #endregion
-
-        #region String Representation
 
         public override String ToCss(IStyleFormatter formatter)
         {
@@ -72,6 +60,18 @@
             }
 
             return String.Format(":{0}({1}n{2})", _name, a, b);
+        }
+
+        #endregion
+
+        #region Internal Methods
+
+        internal ChildSelector With(Int32 step, Int32 offset, ISelector kind)
+        {
+            _step = step;
+            _offset = offset;
+            _kind = kind;
+            return this;
         }
 
         #endregion

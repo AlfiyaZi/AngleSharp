@@ -3,6 +3,9 @@
     using AngleSharp.Css;
     using System;
 
+    /// <summary>
+    /// Represents the orientation constraint.
+    /// </summary>
     sealed class OrientationMediaFeature : MediaFeature
     {
         #region Fields
@@ -35,9 +38,9 @@
         public override Boolean Validate(RenderDevice device)
         {
             var portrait = false;
-            var desired = portrait;
+            var expected = portrait;
             var available = device.DeviceHeight >= device.DeviceWidth;
-            return desired == available;
+            return expected == available;
         }
 
         #endregion

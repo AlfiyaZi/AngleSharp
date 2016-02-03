@@ -208,10 +208,6 @@
             return _matches(element);
         }
 
-        #endregion
-
-        #region String Representation
-
         public override String ToCss(IStyleFormatter formatter)
         {
             return Text;

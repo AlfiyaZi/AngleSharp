@@ -74,10 +74,6 @@
             _selectors.Remove(selector);
         }
 
-        #endregion
-
-        #region IEnumerable implementation
-
         public IEnumerator<ISelector> GetEnumerator()
         {
             return _selectors.GetEnumerator();

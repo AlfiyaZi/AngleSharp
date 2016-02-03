@@ -4,6 +4,9 @@
     using AngleSharp.Extensions;
     using System;
 
+    /// <summary>
+    /// Represents the scripting constraint.
+    /// </summary>
     sealed class ScriptingMediaFeature : MediaFeature
     {
         #region Fields
@@ -35,7 +38,7 @@
 
         public override Boolean Validate(RenderDevice device)
         {
-            var state = ScriptingState.None;
+            var expected = ScriptingState.None;
             var options = device.Options;
             var available = ScriptingState.None;
 
@@ -44,7 +47,7 @@
                 available = device.DeviceType == RenderDevice.Kind.Screen ? ScriptingState.Enabled : ScriptingState.InitialOnly;
             }
 
-            return state == available;
+            return expected == available;
         }
 
         #endregion

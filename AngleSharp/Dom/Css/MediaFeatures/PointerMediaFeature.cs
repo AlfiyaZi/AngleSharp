@@ -4,6 +4,9 @@
     using AngleSharp.Extensions;
     using System;
 
+    /// <summary>
+    /// Represents the pointer constraint.
+    /// </summary>
     sealed class PointerMediaFeature : MediaFeature
     {
         #region Fields
@@ -36,9 +39,9 @@
         public override Boolean Validate(RenderDevice device)
         {
             var accuracy = PointerAccuracy.Fine;
-            var desired = accuracy;
+            var expected = accuracy;
             //Nothing yet, so we assume we have a headless browser
-            return desired == PointerAccuracy.None;
+            return expected == PointerAccuracy.None;
         }
 
         #endregion

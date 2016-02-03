@@ -3,6 +3,9 @@
     using AngleSharp.Css;
     using System;
 
+    /// <summary>
+    /// Represents the device-pixel-ratio constraint.
+    /// </summary>
     sealed class DevicePixelRatioFeature : MediaFeature
     {
         #region ctor

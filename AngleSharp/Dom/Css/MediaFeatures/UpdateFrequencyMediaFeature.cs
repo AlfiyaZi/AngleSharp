@@ -4,6 +4,9 @@
     using AngleSharp.Extensions;
     using System;
 
+    /// <summary>
+    /// Represents the update-frequency constraint.
+    /// </summary>
     sealed class UpdateFrequencyMediaFeature : MediaFeature
     {
         #region Fields

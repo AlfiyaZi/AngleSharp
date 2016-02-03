@@ -25,7 +25,7 @@
         public ISelector Selector
         {
             get { return Children.OfType<ISelector>().FirstOrDefault(); }
-            set { ReplaceSingle(Selector, value); }
+            set { ReplaceChild(Selector, value); }
         }
 
         public String SelectorText
@@ -46,7 +46,7 @@
 
         #endregion
 
-        #region String Representation
+        #region Methods
 
         public override String ToCss(IStyleFormatter formatter)
         {

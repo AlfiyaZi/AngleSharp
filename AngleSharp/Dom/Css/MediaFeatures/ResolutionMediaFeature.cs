@@ -4,6 +4,9 @@
     using AngleSharp.Css.Values;
     using System;
 
+    /// <summary>
+    /// Represents the resolution constraint.
+    /// </summary>
     sealed class ResolutionMediaFeature : MediaFeature
     {
         #region ctor
@@ -30,19 +33,9 @@
         public override Boolean Validate(RenderDevice device)
         {
             var res = new Resolution(72f, Resolution.Unit.Dpi);
-            var desired = res.To(Resolution.Unit.Dpi);
+            var expected = res.To(Resolution.Unit.Dpi);
             var available = (Single)device.Resolution;
-
-            if (IsMaximum)
-            {
-                return available <= desired;
-            }
-            else if (IsMinimum)
-            {
-                return available >= desired;
-            }
-
-            return desired == available;
+            return Assert(expected, available);
         }
 
         #endregion

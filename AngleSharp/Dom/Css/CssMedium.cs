@@ -117,10 +117,6 @@
             return base.GetHashCode();
         }
 
-        #endregion
-
-        #region String Representation
-
         public override String ToCss(IStyleFormatter formatter)
         {
             var constraints = Features.Select(m => m.ToCss(formatter));

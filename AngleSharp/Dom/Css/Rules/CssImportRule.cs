@@ -32,7 +32,7 @@
 
         public String Href
         {
-            get { return GetValue<CssRawUrl>(m => m.CssText); }
+            get { return GetValue<CssRawUrl, String>(m => m.CssText); }
             set { SetValue(value, m => new CssRawUrl(m)); }
         }
 
@@ -88,7 +88,7 @@
 
         #endregion
 
-        #region String Representation
+        #region Methods
 
         public override String ToCss(IStyleFormatter formatter)
         {

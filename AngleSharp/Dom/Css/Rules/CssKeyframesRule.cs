@@ -32,7 +32,7 @@
 
         public String Name
         {
-            get { return GetValue<CssRawString>(m => m.CssText); }
+            get { return GetValue<CssRawString, String>(m => m.CssText); }
             set { SetValue(value, m => new CssRawString(m)); }
         }
 
