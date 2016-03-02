@@ -205,6 +205,28 @@
         }
 
         /// <summary>
+        /// Checks the equality of the two given text resolutions.
+        /// </summary>
+        /// <param name="a">The left resolution.</param>
+        /// <param name="b">The right resolution.</param>
+        /// <returns>True if both resolutions are equal, otherwise false.</returns>
+        public static Boolean operator ==(Resolution a, Resolution b)
+        {
+            return a.Equals(b);
+        }
+
+        /// <summary>
+        /// Checks the inequality of the two given resolutions.
+        /// </summary>
+        /// <param name="a">The left resolution.</param>
+        /// <param name="b">The right resolution.</param>
+        /// <returns>True if both resolutions are not equal, otherwise false.</returns>
+        public static Boolean operator !=(Resolution a, Resolution b)
+        {
+            return !a.Equals(b);
+        }
+
+        /// <summary>
         /// Tests if another object is equal to this object.
         /// </summary>
         /// <param name="obj">The object to test with.</param>

@@ -76,6 +76,28 @@
         }
 
         /// <summary>
+        /// Checks the equality of the two given text ranges.
+        /// </summary>
+        /// <param name="a">The left range.</param>
+        /// <param name="b">The right range.</param>
+        /// <returns>True if both ranges are equal, otherwise false.</returns>
+        public static Boolean operator ==(TextRange a, TextRange b)
+        {
+            return a.Equals(b);
+        }
+
+        /// <summary>
+        /// Checks the inequality of the two given text ranges.
+        /// </summary>
+        /// <param name="a">The left range.</param>
+        /// <param name="b">The right length.</param>
+        /// <returns>True if both ranges are not equal, otherwise false.</returns>
+        public static Boolean operator !=(TextRange a, TextRange b)
+        {
+            return !a.Equals(b);
+        }
+
+        /// <summary>
         /// Indicates whether this instance and a specified object are equal.
         /// </summary>
         /// <param name="obj">

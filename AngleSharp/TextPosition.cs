@@ -149,6 +149,28 @@
         }
 
         /// <summary>
+        /// Checks the equality of the two given text positions.
+        /// </summary>
+        /// <param name="a">The left position.</param>
+        /// <param name="b">The right position.</param>
+        /// <returns>True if both positions are equal, otherwise false.</returns>
+        public static Boolean operator ==(TextPosition a, TextPosition b)
+        {
+            return a.Equals(b);
+        }
+
+        /// <summary>
+        /// Checks the inequality of the two given text positions.
+        /// </summary>
+        /// <param name="a">The left position.</param>
+        /// <param name="b">The right position.</param>
+        /// <returns>True if both position are not equal, otherwise false.</returns>
+        public static Boolean operator !=(TextPosition a, TextPosition b)
+        {
+            return !a.Equals(b);
+        }
+
+        /// <summary>
         /// Indicates whether this instance and a specified object are equal.
         /// </summary>
         /// <param name="obj">
