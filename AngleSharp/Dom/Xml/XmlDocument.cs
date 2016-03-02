@@ -58,15 +58,19 @@
             var document = new XmlDocument(context, options.Source);
             var evt = new HtmlParseStartEvent(document);
             var events = context.Configuration.Events;
-            var parser = new XmlDomBuilder(document);
-            document.Setup(options);
-            context.NavigateTo(document);
 
-            if (events != null)
-                events.Publish(evt);
+            using (var parser = new XmlDomBuilder(document))
+            {
+                document.Setup(options);
+                context.NavigateTo(document);
 
-            await parser.ParseAsync(default(XmlParserOptions), cancelToken).ConfigureAwait(false);
-            evt.FireEnd();
+                if (events != null)
+                    events.Publish(evt);
+
+                await parser.ParseAsync(default(XmlParserOptions), cancelToken).ConfigureAwait(false);
+                evt.FireEnd();
+            }
+
             return document;
         }
 

@@ -115,7 +115,7 @@
             return null;
         }
 
-        sealed class TaskEventLoopEntry : IEventLoopEntry
+        sealed class TaskEventLoopEntry : IEventLoopEntry, IDisposable
         {
             readonly Task _task;
             readonly CancellationTokenSource _cts;
@@ -166,6 +166,11 @@
 
                     return _created;
                 }
+            }
+
+            public void Dispose()
+            {
+                _cts.Dispose();   
             }
         }
     }

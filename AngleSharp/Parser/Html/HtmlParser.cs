@@ -99,8 +99,11 @@
         public IHtmlDocument Parse(String source)
         {
             var document = CreateDocument(source);
-            var parser = new HtmlDomBuilder(document);
-            return parser.Parse(_options);
+
+            using (var parser = new HtmlDomBuilder(document))
+            {
+                return parser.Parse(_options);
+            }
         }
 
         /// <summary>
@@ -109,14 +112,18 @@
         public INodeList ParseFragment(String source, IElement context)
         {
             var document = CreateDocument(source);
-            var parser = new HtmlDomBuilder(document);
 
-            if (context == null)
-                return parser.Parse(_options).ChildNodes;
+            using (var parser = new HtmlDomBuilder(document))
+            {
+                if (context == null)
+                {
+                    return parser.Parse(_options).ChildNodes;
+                }
 
-            var element = context as Element ?? 
-                Factory.HtmlElements.Create(document, context.LocalName, context.Prefix);
-            return parser.ParseFragment(_options, element).DocumentElement.ChildNodes;
+                var element = context as Element ??
+                    Factory.HtmlElements.Create(document, context.LocalName, context.Prefix);
+                return parser.ParseFragment(_options, element).DocumentElement.ChildNodes;
+            }
         }
 
         /// <summary>
@@ -125,8 +132,11 @@
         public IHtmlDocument Parse(Stream source)
         {
             var document = CreateDocument(source);
-            var parser = new HtmlDomBuilder(document);
-            return parser.Parse(_options);
+
+            using (var parser = new HtmlDomBuilder(document))
+            {
+                return parser.Parse(_options);
+            }
         }
 
         /// <summary>
@@ -151,8 +161,11 @@
         public async Task<IHtmlDocument> ParseAsync(String source, CancellationToken cancel)
         {
             var document = CreateDocument(source);
-            var parser = new HtmlDomBuilder(document);
-            return await parser.ParseAsync(_options, cancel).ConfigureAwait(false);
+
+            using (var parser = new HtmlDomBuilder(document))
+            {
+                return await parser.ParseAsync(_options, cancel).ConfigureAwait(false);
+            }
         }
 
         /// <summary>
@@ -161,8 +174,11 @@
         public async Task<IHtmlDocument> ParseAsync(Stream source, CancellationToken cancel)
         {
             var document = CreateDocument(source);
-            var parser = new HtmlDomBuilder(document);
-            return await parser.ParseAsync(_options, cancel).ConfigureAwait(false);
+
+            using (var parser = new HtmlDomBuilder(document))
+            {
+                return await parser.ParseAsync(_options, cancel).ConfigureAwait(false);
+            }
         }
 
         #endregion

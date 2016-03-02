@@ -39,21 +39,22 @@
         internal DocumentFragment(Element context, String html)
             : this(context.Owner)
         {
-            var source = new TextSource(html);
-            var document = new HtmlDocument(Owner.Context, source);
-            var parser = new HtmlDomBuilder(document);
-            var options = new HtmlParserOptions
+            using (var document = new HtmlDocument(Owner.Context, new TextSource(html)))
+            using (var parser = new HtmlDomBuilder(document))
             {
-                IsEmbedded = false,
-                IsScripting = Owner.Options.IsScripting()
-            };
-            var root = parser.ParseFragment(options, context).DocumentElement;
+                var options = new HtmlParserOptions
+                {
+                    IsEmbedded = false,
+                    IsScripting = Owner.Options.IsScripting()
+                };
+                var root = parser.ParseFragment(options, context).DocumentElement;
 
-            while (root.HasChildNodes)
-            {
-                var child = root.FirstChild;
-                root.RemoveChild(child);
-                this.PreInsert(child, null);
+                while (root.HasChildNodes)
+                {
+                    var child = root.FirstChild;
+                    root.RemoveChild(child);
+                    this.PreInsert(child, null);
+                }
             }
         }
 

@@ -94,21 +94,22 @@
             var evt = new HtmlParseStartEvent(document);
             var config = context.Configuration;
             var events = config.Events;
-            var parser = new HtmlDomBuilder(document);
-            var parserOptions = new HtmlParserOptions
-            {
-                IsScripting = config.IsScripting()
-            };
-            document.Setup(options);
-            context.NavigateTo(document);
 
-            if (events != null)
+            using (var parser = new HtmlDomBuilder(document))
             {
-                events.Publish(evt);
+                var parserOptions = new HtmlParserOptions { IsScripting = config.IsScripting() };
+                document.Setup(options);
+                context.NavigateTo(document);
+
+                if (events != null)
+                {
+                    events.Publish(evt);
+                }
+
+                await parser.ParseAsync(parserOptions, cancelToken).ConfigureAwait(false);
+                evt.FireEnd();
             }
 
-            await parser.ParseAsync(parserOptions, cancelToken).ConfigureAwait(false);
-            evt.FireEnd();
             return document;
         }
 

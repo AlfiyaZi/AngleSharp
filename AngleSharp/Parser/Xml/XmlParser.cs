@@ -98,9 +98,12 @@
         public IXmlDocument Parse(String source)
         {
             var document = CreateDocument(source);
-            var parser = new XmlDomBuilder(document);
-            parser.Parse(_options);
-            return document;
+
+            using (var parser = new XmlDomBuilder(document))
+            {
+                parser.Parse(_options);
+                return document;
+            }
         }
 
         /// <summary>
@@ -109,9 +112,12 @@
         public IXmlDocument Parse(Stream source)
         {
             var document = CreateDocument(source);
-            var parser = new XmlDomBuilder(document);
-            parser.Parse(_options);
-            return document;
+
+            using (var parser = new XmlDomBuilder(document))
+            {
+                parser.Parse(_options);
+                return document;
+            }
         }
 
         /// <summary>
@@ -136,9 +142,12 @@
         public async Task<IXmlDocument> ParseAsync(String source, CancellationToken cancel)
         {
             var document = CreateDocument(source);
-            var parser = new XmlDomBuilder(document);
-            await parser.ParseAsync(_options, cancel).ConfigureAwait(false);
-            return document;
+
+            using (var parser = new XmlDomBuilder(document))
+            {
+                await parser.ParseAsync(_options, cancel).ConfigureAwait(false);
+                return document;
+            }
         }
 
         /// <summary>
@@ -147,9 +156,12 @@
         public async Task<IXmlDocument> ParseAsync(Stream source, CancellationToken cancel)
         {
             var document = CreateDocument(source);
-            var parser = new XmlDomBuilder(document);
-            await parser.ParseAsync(_options, cancel).ConfigureAwait(false);
-            return document;
+
+            using (var parser = new XmlDomBuilder(document))
+            {
+                await parser.ParseAsync(_options, cancel).ConfigureAwait(false);
+                return document;
+            }
         }
 
         #endregion

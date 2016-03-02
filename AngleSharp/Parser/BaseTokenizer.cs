@@ -102,13 +102,6 @@
 
         public void Dispose()
         {
-            var disposable = _source as IDisposable;
-
-            if (disposable != null)
-            {
-                disposable.Dispose();
-            }
-
             _stringBuffer.ToPool();
         }
 

@@ -76,7 +76,10 @@
             _active = document;
         }
 
-        void IDisposable.Dispose()
+        /// <summary>
+        /// Disposes the underlying resources.
+        /// </summary>
+        public void Dispose()
         {
             if (_active != null)
             {

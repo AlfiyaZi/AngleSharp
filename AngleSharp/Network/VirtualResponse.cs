@@ -9,7 +9,7 @@
     /// <summary>
     /// The virtual response class.
     /// </summary>
-    public class VirtualResponse : IResponse
+    public sealed class VirtualResponse : IResponse
     {
         #region Fields
 
@@ -203,7 +203,10 @@
             content = null;
         }
 
-        void IDisposable.Dispose()
+        /// <summary>
+        /// Releases the underlying resources.
+        /// </summary>
+        public void Dispose()
         {
             Release();
         }

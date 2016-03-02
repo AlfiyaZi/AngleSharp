@@ -17,7 +17,7 @@
     /// http://www.w3.org/TR/REC-xml/
     /// </summary>
     [DebuggerStepThrough]
-    sealed class XmlDomBuilder
+    sealed class XmlDomBuilder : IDisposable
     {
         #region Fields
 
@@ -113,6 +113,14 @@
             while (token.Type != XmlTokenType.EndOfFile);
 
             return _document;
+        }
+
+        /// <summary>
+        /// Releases some parser allocated resources.
+        /// </summary>
+        public void Dispose()
+        {
+            _tokenizer.Dispose();
         }
 
         #endregion

@@ -65,12 +65,23 @@
 
         #region Methods
 
-        void IDisposable.Dispose()
+        /// <summary>
+        /// Releases the underlying resources.
+        /// </summary>
+        public void Dispose()
         {
-            if (Content != null)
-                Content.Dispose();
+            var content = Content;
+            var headers = Headers;
 
-            Headers.Clear();
+            if (content != null)
+            {
+                content.Dispose();
+            }
+
+            if (headers != null)
+            {
+                Headers.Clear();
+            }
         }
 
         #endregion

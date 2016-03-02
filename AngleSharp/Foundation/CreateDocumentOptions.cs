@@ -16,14 +16,6 @@
     /// </summary>
     sealed class CreateDocumentOptions
     {
-        #region Fields
-
-        readonly IResponse _response;
-        readonly MimeType _contentType;
-        readonly TextSource _source;
-
-        #endregion
-
         #region ctor
 
         public CreateDocumentOptions(IResponse response, IConfiguration configuration)
@@ -37,9 +29,9 @@
                 encoding = TextEncoding.Resolve(charset);
             }
 
-            _source = new TextSource(response.Content, encoding);
-            _contentType = contentType;
-            _response = response;
+            ContentType = contentType;
+            Source = new TextSource(response.Content, encoding);
+            Response = response;
         }
 
         #endregion
@@ -48,17 +40,20 @@
 
         public IResponse Response
         {
-            get { return _response; }
-        }
-
-        public MimeType ContentType
-        {
-            get { return _contentType; }
+            get;
+            private set;
         }
 
         public TextSource Source
         {
-            get { return _source; }
+            get;
+            private set;
+        }
+
+        public MimeType ContentType
+        {
+            get;
+            private set;
         }
 
         public IDocument ImportAncestor 
@@ -73,11 +68,13 @@
 
         public Func<IBrowsingContext, CreateDocumentOptions, CancellationToken, Task<IDocument>> FindCreator()
         {
-            if (_contentType.Represents(MimeTypeNames.Xml) || _contentType.Represents(MimeTypeNames.ApplicationXml))
+            var contentType = ContentType;
+
+            if (contentType.Represents(MimeTypeNames.Xml) || contentType.Represents(MimeTypeNames.ApplicationXml))
             {
                 return XmlDocument.LoadAsync;
             }
-            else if (_contentType.Represents(MimeTypeNames.Svg))
+            else if (contentType.Represents(MimeTypeNames.Svg))
             {
                 return SvgDocument.LoadAsync;
             }

@@ -20,7 +20,7 @@
     /// http://www.w3.org/html/wg/drafts/html/master/syntax.html
     /// </summary>
     [DebuggerStepThrough]
-    sealed class HtmlDomBuilder
+    sealed class HtmlDomBuilder : IDisposable
     {
         #region Fields
 
@@ -274,6 +274,14 @@
                 Home(token);
             else
                 Foreign(token);
+        }
+
+        /// <summary>
+        /// Releases some parser allocated resources.
+        /// </summary>
+        public void Dispose()
+        {
+            _tokenizer.Dispose();
         }
 
         #endregion

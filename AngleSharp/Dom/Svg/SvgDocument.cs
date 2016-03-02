@@ -41,7 +41,9 @@
                 var title = RootElement.FindChild<ISvgTitleElement>();
 
                 if (title != null)
+                {
                     return title.TextContent.CollapseAndStrip();
+                }
 
                 return String.Empty;
             }
@@ -79,15 +81,19 @@
             var document = new SvgDocument(context, options.Source);
             var evt = new HtmlParseStartEvent(document);
             var events = context.Configuration.Events;
-            var parser = new XmlDomBuilder(document);
-            document.Setup(options);
-            context.NavigateTo(document);
 
-            if (events != null)
-                events.Publish(evt);
+            using (var parser = new XmlDomBuilder(document))
+            {
+                document.Setup(options);
+                context.NavigateTo(document);
 
-            await parser.ParseAsync(default(XmlParserOptions), cancelToken).ConfigureAwait(false);
-            evt.FireEnd();
+                if (events != null)
+                    events.Publish(evt);
+
+                await parser.ParseAsync(default(XmlParserOptions), cancelToken).ConfigureAwait(false);
+                evt.FireEnd();
+            }
+
             return document;
         }
     }
