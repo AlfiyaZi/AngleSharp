@@ -25,7 +25,6 @@
 
             public void Shutdown()
             {
-                throw new NotImplementedException();
             }
         }
     }
