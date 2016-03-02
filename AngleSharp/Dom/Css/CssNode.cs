@@ -12,7 +12,6 @@
         #region Fields
 
         readonly List<ICssNode> _children;
-        TextView _source;
 
         #endregion
 
@@ -21,18 +20,11 @@
         public CssNode()
         {
             _children = new List<ICssNode>();
-            _source = null;
         }
 
         #endregion
 
         #region Properties
-
-        public TextView SourceCode
-        {
-            get { return _source; }
-            internal set { _source = value; }
-        }
 
         public IEnumerable<ICssNode> Children
         {
@@ -123,7 +115,6 @@
         protected void ReplaceAll(ICssNode node)
         {
             Clear();
-            _source = node.SourceCode;
 
             foreach (var child in node.Children)
             {

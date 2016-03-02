@@ -10,7 +10,6 @@
     sealed class CssRawString : ICssNode
     {
         readonly String _text;
-        TextView _source;
 
         public CssRawString(String text)
         {
@@ -25,12 +24,6 @@
         public String CssText
         {
             get { return _text; }
-        }
-
-        public TextView SourceCode
-        {
-            get { return _source; }
-            set { _source = value; }
         }
 
         public String ToCss(IStyleFormatter formatter)

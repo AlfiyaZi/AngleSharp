@@ -1029,7 +1029,7 @@ font-weight:bold;}";
             });
             var source = ".foo { color: red; } @media all /*test*/ and /*test*/ (min-width: 701px) /*test*/ { #myid { color: green; } }";
             var sheet = parser.ParseStylesheet(source);
-            var roundtrip = sheet.SourceCode.Text;
+            var roundtrip = sheet.ToCss();
             Assert.AreEqual(source, roundtrip);
         }
 
@@ -1043,7 +1043,7 @@ font-weight:bold;}";
             });
             var source = CssStyleEngine.DefaultSource.Replace(Environment.NewLine, "\n").Replace("\\A", "\\a").Replace("'", "\"");
             var sheet = parser.ParseStylesheet(source);
-            var roundtrip = sheet.SourceCode.Text;
+            var roundtrip = sheet.ToCss();
             Assert.AreEqual(source, roundtrip);
         }
 
@@ -1056,7 +1056,7 @@ font-weight:bold;}";
             });
             var source = ".foo { } #bar { } @media all { div { } a > b { } @media print { script[type] { } } }";
             var sheet = parser.ParseStylesheet(source);
-            var roundtrip = sheet.SourceCode.Text;
+            var roundtrip = sheet.ToCss();
             Assert.AreEqual(source, roundtrip);
             var selectors = sheet.GetAll<ISelector>();
             Assert.AreEqual(5, selectors.Count());
@@ -1064,7 +1064,7 @@ font-weight:bold;}";
             Assert.AreEqual(2, mediaRules.Count());
             var descendentSelector = selectors.Skip(3).First();
             Assert.AreEqual("a>b", descendentSelector.Text);
-            Assert.AreEqual("a > b ", descendentSelector.SourceCode.Text);
+            Assert.AreEqual("a > b ", descendentSelector.ToCss());
         }
 
         [Test]

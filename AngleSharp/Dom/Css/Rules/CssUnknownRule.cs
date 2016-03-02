@@ -37,9 +37,7 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            var view = SourceCode;
-            var text = view != null ? view.Text : String.Empty;
-            return text;
+            return String.Empty;
         }
 
         #endregion

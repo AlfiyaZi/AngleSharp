@@ -123,7 +123,6 @@
             }
 
             JumpToEnd(ref token);
-            rule.SourceCode = CreateView(start, token.Position);
             _nodes.Pop();
             return rule;
         }
@@ -141,7 +140,6 @@
             if (token.Type == CssTokenType.CurlyBracketOpen)
             {
                 var end = FillRules(rule);
-                rule.SourceCode = CreateView(start, end);
                 _nodes.Pop();
                 return rule;
             }
@@ -161,7 +159,6 @@
             if (token.Type == CssTokenType.CurlyBracketOpen)
             {
                 var end = FillDeclarations(rule, Factory.Properties.CreateViewport);
-                rule.SourceCode = CreateView(start, end);
                 _nodes.Pop();
                 return rule;
             }
@@ -181,7 +178,6 @@
             if (token.Type == CssTokenType.CurlyBracketOpen)
             {
                 var end = FillDeclarations(rule, Factory.Properties.CreateFont);
-                rule.SourceCode = CreateView(start, end);
                 _nodes.Pop();
                 return rule;
             }
@@ -208,7 +204,6 @@
 
             CollectTrivia(ref token);
             JumpToEnd(ref token);
-            rule.SourceCode = CreateView(start, token.Position);
             _nodes.Pop();
             return rule;
         }
@@ -226,7 +221,6 @@
             if (token.Type == CssTokenType.CurlyBracketOpen)
             {
                 var end = FillKeyframeRules(rule);
-                rule.SourceCode = CreateView(start, end);
                 _nodes.Pop();
                 return rule;
             }
@@ -264,7 +258,6 @@
             }
 
             var end = FillRules(rule);
-            rule.SourceCode = CreateView(start, end);
             _nodes.Pop();
             return rule;
         }
@@ -285,7 +278,6 @@
             }
 
             JumpToEnd(ref token);
-            rule.SourceCode = CreateView(start, token.Position);
             _nodes.Pop();
             return rule;
         }
@@ -303,7 +295,6 @@
             if (token.Type == CssTokenType.CurlyBracketOpen)
             {
                 var end = FillDeclarations(rule.Style);
-                rule.SourceCode = CreateView(start, end);
                 _nodes.Pop();
                 return rule;
             }
@@ -325,7 +316,6 @@
             if (token.Type == CssTokenType.CurlyBracketOpen)
             {
                 var end = FillRules(rule);
-                rule.SourceCode = CreateView(start, end);
                 _nodes.Pop();
                 return rule;
             }
@@ -342,7 +332,6 @@
             CollectTrivia(ref current);
             rule.Selector = CreateSelector(ref current);
             var end = FillDeclarations(rule.Style);
-            rule.SourceCode = CreateView(start, end);
             _nodes.Pop();
             return rule.Selector != null ? rule : null;
         }
@@ -355,7 +344,6 @@
             CollectTrivia(ref current);
             rule.Key = CreateKeyframeSelector(ref current);
             var end = FillDeclarations(rule.Style);
-            rule.SourceCode = CreateView(start, end);
             _nodes.Pop();
             return rule.Key != null ? rule : null;
         }
@@ -399,7 +387,6 @@
                     while (curly != 0);
                 }
 
-                rule.SourceCode = CreateView(start, token.Position);
                 _nodes.Pop();
                 return rule;
             }
@@ -831,12 +818,6 @@
             return _tokenizer.Get();
         }
 
-        TextView CreateView(TextPosition start, TextPosition end)
-        {
-            var range = new TextRange(start, end);
-            return new TextView(range, _tokenizer.Source);
-        }
-
         void CollectTrivia(ref CssToken token)
         {
             var storeComments = _parser.Options.IsStoringTrivia;
@@ -847,9 +828,6 @@
                 {
                     var current = _nodes.Peek();
                     var comment = new CssComment(token.Data);
-                    var start = token.Position;
-                    var end = start.After(token.ToValue());
-                    comment.SourceCode = CreateView(start, end);
                     current.AppendChild(comment);
                 }
 
@@ -1121,13 +1099,6 @@
             }
 
             var result = selector.ToPool();
-            var node = result as CssNode;
-
-            if (node != null)
-            {
-                var end = token.Position.Shift(-1);
-                node.SourceCode = CreateView(start, end);
-            }
 
             if (!selector.IsValid && !_parser.Options.IsToleratingInvalidValues)
             {
@@ -1154,13 +1125,6 @@
             important = value.IsImportant;
             _tokenizer.IsInValue = false;
             var result = value.ToPool();
-            var node = result as CssNode;
-
-            if (node != null)
-            {
-                var end = token.Position.Shift(-1);
-                node.SourceCode = CreateView(start, end);
-            }
 
             if (!value.IsValid && !_parser.Options.IsToleratingInvalidValues)
             {
@@ -1215,14 +1179,6 @@
 
                 if (feature != null && feature.TrySetValue(val))
                 {
-                    var node = feature as CssNode;
-
-                    if (node != null)
-                    {
-                        var end = token.Position.Shift(-1);
-                        node.SourceCode = CreateView(start, end);
-                    }
-
                     return feature;
                 }
             }

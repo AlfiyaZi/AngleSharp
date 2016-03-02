@@ -32,7 +32,7 @@
 
         public override String ToCss(IStyleFormatter formatter)
         {
-            return SourceCode != null ? SourceCode.Text : String.Empty;
+            return String.Empty;
         }
 
         #endregion

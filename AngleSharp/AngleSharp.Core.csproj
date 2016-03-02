@@ -598,7 +598,6 @@
     <Compile Include="Css\Values\StepsTimingFunction.cs" />
     <Compile Include="Services\Media\IObjectInfo.cs" />
     <Compile Include="TextPosition.cs" />
-    <Compile Include="TextView.cs" />
     <Compile Include="Url.cs" />
     <Compile Include="Extensions\StyleExtensions.cs" />
     <Compile Include="TextSource.cs" />

@@ -179,8 +179,6 @@
             var start = tokenizer.GetCurrentPosition();
             var builder = new CssBuilder(tokenizer, this);
             var end = builder.CreateRules(sheet);
-            var range = new TextRange(start, end);
-            sheet.SourceCode = new TextView(range, source);
             return sheet;
         }
 
@@ -193,8 +191,6 @@
             var document = sheet.GetDocument() as Document;
             var tasks = new List<Task>();
             var end = builder.CreateRules(sheet);
-            var range = new TextRange(start, end);
-            sheet.SourceCode = new TextView(range, source);
             
             foreach (var rule in sheet.Rules)
             {

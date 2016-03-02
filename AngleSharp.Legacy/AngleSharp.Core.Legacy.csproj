@@ -3074,9 +3074,6 @@
     <Compile Include="..\AngleSharp\TextSource.cs">
       <Link>TextSource.cs</Link>
     </Compile>
-    <Compile Include="..\AngleSharp\TextView.cs">
-      <Link>TextView.cs</Link>
-    </Compile>
     <Compile Include="..\AngleSharp\Url.cs">
       <Link>Url.cs</Link>
     </Compile>
