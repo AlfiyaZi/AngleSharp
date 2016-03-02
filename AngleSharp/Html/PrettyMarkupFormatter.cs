@@ -7,7 +7,7 @@
     /// <summary>
     /// Represents the an HTML5 markup formatter with inserted intends.
     /// </summary>
-    public class PrettyMarkupFormatter : IMarkupFormatter
+    public sealed class PrettyMarkupFormatter : IMarkupFormatter
     {
         #region Fields
 

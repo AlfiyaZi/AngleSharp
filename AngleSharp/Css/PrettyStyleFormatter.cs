@@ -7,7 +7,7 @@
     /// <summary>
     /// Represents the an CSS3 markup formatter with inserted intends.
     /// </summary>
-    public class PrettyStyleFormatter : IStyleFormatter
+    public sealed class PrettyStyleFormatter : IStyleFormatter
     {
         #region Fields
 
