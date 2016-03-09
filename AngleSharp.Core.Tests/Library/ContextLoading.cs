@@ -372,5 +372,19 @@
             Assert.AreEqual(document.QuerySelector("iframe"), downloads[4].Originator);
             Assert.AreEqual(document.QuerySelectorAll("script").Skip(1).First(), downloads[5].Originator);
         }
+
+        [Test]
+        public async Task DownloadAmazonFranceHomepageAndGetSpecialApostrophe()
+        {
+            var content = Helper.StreamFromBytes(Assets.amazon);
+            var config = Configuration.Default;
+            var document = await BrowsingContext.New(config).OpenAsync(res => res.Content(content).Address("http://www.amazon.fr"));
+
+            var div = document.QuerySelector("#nav-prime-tooltip .nav-npt-text-title");
+
+            Assert.IsNotNull(div);
+
+            Assert.AreEqual(" Livraison en 1 jour ouvré gratuite et illimitée sur des millions d’articles ", div.TextContent);
+        }
     }
 }
