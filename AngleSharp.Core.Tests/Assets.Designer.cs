@@ -66,6 +66,15 @@ namespace AngleSharp.Core.Tests {
         internal static byte[] amazon {
             get {
                 object obj = ResourceManager.GetObject("amazon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] amazonenc {
+            get {
+                object obj = ResourceManager.GetObject("amazonenc", resourceCulture);
                 return ((byte[])(obj));
             }
         }
